@@ -1,6 +1,7 @@
 package com.example.ch10_player3;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +9,8 @@ import android.view.WindowManager;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-public class Video extends AppCompatActivity {
+public class Video extends AppCompatActivity
+        implements MediaPlayer.OnCompletionListener {
 
     VideoView vdv;
     int pos=0;
@@ -34,8 +36,7 @@ public class Video extends AppCompatActivity {
 
         vdv.setMediaController(mediaCtrl);
         vdv.setVideoURI(uri);
-
-
+        vdv.setOnCompletionListener(this);
     }
     @Override
     protected void onResume(){
@@ -54,5 +55,10 @@ public class Video extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putInt("pos",pos);
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        finish();
     }
 }
